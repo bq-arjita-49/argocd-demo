@@ -13,5 +13,17 @@ spec:
         app: myapp
     spec:
       containers:
-      - name: myapp
-        image: nginx:latest
+        - name: myapp
+          image: nginx:latest
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: my-app-secret  # Must match the target.name in ExternalSecret
+                  key: username
+            - name: DB_PASSWORD   # Fixed indentation and removed extra period
+              valueFrom:
+                secretKeyRef:
+                  name: my-app-secret
+                  key: password
+
